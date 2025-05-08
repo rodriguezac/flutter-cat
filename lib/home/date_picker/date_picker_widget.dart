@@ -18,14 +18,14 @@ class DatePickerWidget extends StatefulWidget {
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
   late DatePickerModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool showCat = false;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => DatePickerModel());
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -55,8 +55,24 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       12: 'assets/images/diciembre.jpeg',
     };
 
+    final catFrasesByMonth = {
+      1: 'Eres un michi feliz. El año empieza con maullidos optimistas.',
+      2: 'Romántico... pero te comes las flores. Nivel: michi de novela.',
+      3: 'Te escondes en cajas y reapareces como si nada. Místico.',
+      4: 'Tu hobby: tumbar vasos y mirar a los humanos a los ojos.',
+      5: 'Duermes más de lo que vive un humano promedio. Legendario.',
+      6: 'Te bañas con la lengua y juzgas desde la ventana.',
+      7: 'El calor no te afecta. Solo duermes con estilo extra derretido.',
+      8: 'Tu energía es de gremlin. Miau a las 3:00AM garantizado.',
+      9: 'Michi de clase: filósofo. Te quedas viendo la pared 20 minutos.',
+      10: 'Te escondes, acechas y corres. Eres un susto peludo.',
+      11: 'Eres un michi batman. Guardián nocturno de las croquetas.',
+      12: 'Gato gordo navideño. Comes, destruyes el árbol y repites.',
+    };
+
     final selectedCatImage =
         catImagesByMonth[selectedMonth] ?? 'assets/images/default.jpeg';
+    final selectedFrase = catFrasesByMonth[selectedMonth] ?? 'Michi misterioso. Sin archivo, sin pasado, solo miau.';
 
     return GestureDetector(
       onTap: () {
@@ -97,8 +113,16 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   weekStartsMonday: false,
                   rowHeight: 48.0,
                   onChange: (DateTimeRange? newSelectedDate) {
-                    safeSetState(() =>
-                        _model.calendarSelectedDay = newSelectedDate);
+                    if (newSelectedDate != null) {
+                      final onlyStart = newSelectedDate.start.startOfDay;
+                      safeSetState(() {
+                        _model.calendarSelectedDay = DateTimeRange(
+                          start: onlyStart,
+                          end: onlyStart,
+                        );
+                        showCat = false;
+                      });
+                    }
                   },
                   titleStyle: FlutterFlowTheme.of(context).titleLarge.override(
                         fontFamily: 'SF UI Text',
@@ -127,13 +151,55 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.asset(
-                selectedCatImage,
-                height: 200,
-                fit: BoxFit.contain,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      showCat = true;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                  child: const Text(
+                    'Confirmar michi',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
               ),
             ),
+            if (showCat) ...[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Image.asset(
+                  selectedCatImage,
+                  height: 200,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  selectedFrase,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),
