@@ -1,3 +1,4 @@
+import '/components/appbar/appbar_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -34,7 +35,6 @@ class _SpinnerGatosWidgetState extends State<SpinnerGatosWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -48,30 +48,14 @@ class _SpinnerGatosWidgetState extends State<SpinnerGatosWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Align(
-            alignment: AlignmentDirectional(1.0, -1.0),
-            child: Text(
-              'Spinner Mood de Gatos',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'SF UI Text',
-                    color: Colors.white,
-                    fontSize: 22.0,
-                    letterSpacing: 0.0,
-                  ),
-            ),
-          ),
-          actions: [],
-          centerTitle: false,
-          elevation: 0.0,
-        ),
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              AppbarWidget(
+                title: 'Spinner Mood de Gatos',
+              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
                 child: Material(
@@ -82,7 +66,7 @@ class _SpinnerGatosWidgetState extends State<SpinnerGatosWidget> {
                   ),
                   child: Container(
                     width: 399.4,
-                    height: 100.0,
+                    height: 90.0, // reducido de 100.0
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(16.0),
@@ -112,7 +96,7 @@ class _SpinnerGatosWidgetState extends State<SpinnerGatosWidget> {
                   ),
                   child: Container(
                     width: 399.4,
-                    height: 529.6,
+                    height: 519.6, // reducido de 529.6
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(16.0),
@@ -244,7 +228,16 @@ class _SpinnerGatosWidgetState extends State<SpinnerGatosWidget> {
                                 0.0, 0.0, 0.0, 20.0),
                             child: FFButtonWidget(
                               onPressed: () {
-                                print('Button pressed ...');
+                                setState(() {
+                                  if (_model.dropDownValue != null &&
+                                      _model.dropDownValue!.isNotEmpty) {
+                                    _model.confirmedMoodText =
+                                        'Tu mood es ${_model.dropDownValue}';
+                                  } else {
+                                    _model.confirmedMoodText =
+                                        'Por favor selecciona un mood 🐱';
+                                  }
+                                });
                               },
                               text: 'Confirmar',
                               options: FFButtonOptions(
@@ -270,7 +263,9 @@ class _SpinnerGatosWidgetState extends State<SpinnerGatosWidget> {
                         Align(
                           alignment: AlignmentDirectional(-0.01, 0.93),
                           child: Text(
-                            '[Michi Mood]',
+                            _model.confirmedMoodText.isNotEmpty
+                                ? _model.confirmedMoodText
+                                : '[Michi Mood]',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

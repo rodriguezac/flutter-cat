@@ -33,7 +33,6 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -61,21 +60,26 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
               ),
               Expanded(
                 child: ListView(
-                  padding: EdgeInsets.fromLTRB(
-                    0,
-                    16.0,
-                    0,
-                    16.0,
-                  ),
+                  padding: EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
                   scrollDirection: Axis.vertical,
                   children: [
-                    wrapWithModel(
-                      model: _model.listnotificatiionModelModel1,
-                      updateCallback: () => safeSetState(() {}),
-                      child: ListnotificatiionModelWidget(
-                        name: 'Date Picker',
-                        txt1: '¿Qué michi eres según tu mes?',
-                        tx2: 'Opción 1',
+                    // ✅ Date Picker con navegación
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed(DatePickerWidget.routeName);
+                      },
+                      child: wrapWithModel(
+                        model: _model.listnotificatiionModelModel1,
+                        updateCallback: () => safeSetState(() {}),
+                        child: ListnotificatiionModelWidget(
+                          name: 'Date Picker',
+                          txt1: '¿Qué michi eres según tu mes?',
+                          tx2: 'Opción 1',
+                        ),
                       ),
                     ),
                     InkWell(
@@ -114,13 +118,23 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                         ),
                       ),
                     ),
-                    wrapWithModel(
-                      model: _model.listnotificatiionModelModel4,
-                      updateCallback: () => safeSetState(() {}),
-                      child: ListnotificatiionModelWidget(
-                        name: 'Spinner',
-                        txt1: 'Escoge tu yo felino hoy',
-                        tx2: 'Opción 4',
+                    // ✅ Spinner con navegación
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed(SpinnerGatosWidget.routeName);
+                      },
+                      child: wrapWithModel(
+                        model: _model.listnotificatiionModelModel4,
+                        updateCallback: () => safeSetState(() {}),
+                        child: ListnotificatiionModelWidget(
+                          name: 'Spinner',
+                          txt1: 'Escoge tu yo felino hoy',
+                          tx2: 'Opción 4',
+                        ),
                       ),
                     ),
                   ].divide(SizedBox(height: 16.0)),

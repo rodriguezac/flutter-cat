@@ -7,6 +7,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'main_page_model.dart';
 export 'main_page_model.dart';
 
+/*
+  * Eliel García, 8-990-1192
+  * Angélica Rodríguez, 2-751-41
+  * Ericka Atencio, 8-1018-73
+*/
+
 class MainPageWidget extends StatefulWidget {
   const MainPageWidget({super.key});
 
