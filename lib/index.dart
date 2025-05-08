@@ -7,3 +7,4 @@ export '/home/michi_rockero/michi_rockero_widget.dart' show MichiRockeroWidget;
 export '/home/michi_vaquero/michi_vaquero_widget.dart' show MichiVaqueroWidget;
 export '/home/michi_pan/michi_pan_widget.dart' show MichiPanWidget;
 export '/home/main_page/main_page_widget.dart' show MainPageWidget;
+export '/home/spinner_gatos/spinner_gatos_widget.dart' show SpinnerGatosWidget;

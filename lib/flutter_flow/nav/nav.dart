@@ -79,6 +79,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: MainPageWidget.routeName,
           path: MainPageWidget.routePath,
           builder: (context, params) => MainPageWidget(),
+        ),
+        FFRoute(
+          name: SpinnerGatosWidget.routeName,
+          path: SpinnerGatosWidget.routePath,
+          builder: (context, params) => SpinnerGatosWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

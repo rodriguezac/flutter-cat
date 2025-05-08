@@ -37,4 +37,10 @@ class FFAppState extends ChangeNotifier {
   set michiImage(String value) {
     _michiImage = value;
   }
+
+  String _selectedOption = '';
+  String get selectedOption => _selectedOption;
+  set selectedOption(String value) {
+    _selectedOption = value;
+  }
 }
