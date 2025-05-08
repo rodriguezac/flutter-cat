@@ -33,7 +33,6 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -61,23 +60,29 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
               ),
               Expanded(
                 child: ListView(
-                  padding: EdgeInsets.fromLTRB(
-                    0,
-                    16.0,
-                    0,
-                    16.0,
-                  ),
+                  padding: EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
                   scrollDirection: Axis.vertical,
                   children: [
-                    wrapWithModel(
-                      model: _model.listnotificatiionModelModel1,
-                      updateCallback: () => safeSetState(() {}),
-                      child: ListnotificatiionModelWidget(
-                        name: 'Date Picker',
-                        txt1: '¿Qué michi eres según tu mes?',
-                        tx2: 'Opción 1',
+                    // Date Picker
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed(DatePickerWidget.routeName);
+                      },
+                      child: wrapWithModel(
+                        model: _model.listnotificatiionModelModel1,
+                        updateCallback: () => safeSetState(() {}),
+                        child: ListnotificatiionModelWidget(
+                          name: 'Date Picker',
+                          txt1: '¿Qué michi eres según tu mes?',
+                          tx2: 'Opción 1',
+                        ),
                       ),
                     ),
+                    // RadioGroup
                     InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -96,6 +101,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                         ),
                       ),
                     ),
+                    // ListView
                     InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -114,6 +120,7 @@ class _MenuPageWidgetState extends State<MenuPageWidget> {
                         ),
                       ),
                     ),
+                    // Spinner (sin navegación aún)
                     wrapWithModel(
                       model: _model.listnotificatiionModelModel4,
                       updateCallback: () => safeSetState(() {}),

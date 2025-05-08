@@ -32,12 +32,32 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final selectedMonth =
+        _model.calendarSelectedDay?.start.month ?? DateTime.now().month;
+
+    final catImagesByMonth = {
+      1: 'assets/images/enero.jpeg',
+      2: 'assets/images/febrero.jpeg',
+      3: 'assets/images/marzo.jpeg',
+      4: 'assets/images/abril.jpeg',
+      5: 'assets/images/mayo.jpeg',
+      6: 'assets/images/junio.jpeg',
+      7: 'assets/images/julio.jpeg',
+      8: 'assets/images/agosto.jpeg',
+      9: 'assets/images/septiembre.jpeg',
+      10: 'assets/images/octubre.jpeg',
+      11: 'assets/images/noviembre.jpeg',
+      12: 'assets/images/diciembre.jpeg',
+    };
+
+    final selectedCatImage =
+        catImagesByMonth[selectedMonth] ?? 'assets/images/default.jpeg';
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -64,10 +84,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   BoxShadow(
                     blurRadius: 3.0,
                     color: Color(0x33000000),
-                    offset: Offset(
-                      0.0,
-                      1.0,
-                    ),
+                    offset: Offset(0.0, 1.0),
                   )
                 ],
               ),
@@ -80,8 +97,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                   weekStartsMonday: false,
                   rowHeight: 48.0,
                   onChange: (DateTimeRange? newSelectedDate) {
-                    safeSetState(
-                        () => _model.calendarSelectedDay = newSelectedDate);
+                    safeSetState(() =>
+                        _model.calendarSelectedDay = newSelectedDate);
                   },
                   titleStyle: FlutterFlowTheme.of(context).titleLarge.override(
                         fontFamily: 'SF UI Text',
@@ -107,6 +124,14 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                             letterSpacing: 0.0,
                           ),
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Image.asset(
+                selectedCatImage,
+                height: 200,
+                fit: BoxFit.contain,
               ),
             ),
           ],
